@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c55mmq4cbc4gt"]
+
+[ext_resource type="FontFile" uid="uid://568r7fqxp3ni" path="res://assets/fonts/Born2bSportyFS.otf" id="1_77c7j"]
+
+[resource]
+default_font = ExtResource("1_77c7j")
+default_font_size = 32

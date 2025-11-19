@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkulajwv3gg15"]
+
+[ext_resource type="Script" uid="uid://bwjwuaeltrxol" path="res://ui/card_display/card_display.gd" id="1_li3i1"]
+[ext_resource type="Texture2D" uid="uid://bpx4hafm87jli" path="res://assets/images/card/TestCardBackground.png" id="2_6gui5"]
+[ext_resource type="Theme" uid="uid://c55mmq4cbc4gt" path="res://ui/DefaultTheme.tres" id="3_dtl4i"]
+[ext_resource type="Texture2D" uid="uid://c5xggry10t1u3" path="res://assets/images/card/HydraulicUppercutArt.png" id="4_j5n3m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3ehx"]
+size = Vector2(250, 350)
+
+[node name="CardDisplay" type="Node2D"]
+script = ExtResource("1_li3i1")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-125, -175)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+z_index = 1
+position = Vector2(125, 175)
+shape = SubResource("RectangleShape2D_n3ehx")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -125.0
+offset_top = -175.0
+offset_right = 125.0
+offset_bottom = 175.0
+mouse_filter = 2
+color = Color(0, 0.43529412, 0.69411767, 0.39215687)
+
+[node name="Border" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_6gui5")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -121.0
+offset_top = -166.0
+offset_right = 65.0
+offset_bottom = -130.0
+theme = ExtResource("3_dtl4i")
+theme_override_font_sizes/font_size = 28
+text = "Hydraulic Punch"
+horizontal_alignment = 1
+
+[node name="CostLabel" type="Label" parent="."]
+offset_left = 81.0
+offset_top = -166.0
+offset_right = 116.0
+offset_bottom = -131.0
+theme = ExtResource("3_dtl4i")
+theme_override_font_sizes/font_size = 28
+text = "1"
+horizontal_alignment = 1
+
+[node name="RulesLabel" type="Label" parent="."]
+offset_left = -115.0
+offset_right = 115.0
+offset_bottom = 165.0
+theme = ExtResource("3_dtl4i")
+theme_override_font_sizes/font_size = 24
+text = "If played from leftmost 
+slot: Deal 20 damage. 
+Otherwise: Deal 10 
+damage."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardArt" type="Sprite2D" parent="."]
+position = Vector2(0, -65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_j5n3m")
+
+[connection signal="input_event" from="Area2D" to="." method="_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
