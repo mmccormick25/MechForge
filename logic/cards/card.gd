@@ -2,8 +2,11 @@ class_name Card
 extends RefCounted
 
 var name: String
+var texture_name: String
 var rules: String
 var cost: int
+var card_display: CardDisplay
+var slot : int
 
 func _init(_name: String, _rules: String, _cost: int):
 	name = _name

@@ -7,5 +7,6 @@ func _init():
 	cost = 1
 	
 func play(battle: Battle, slot_index: int) -> void:
-	battle.output_label.text = "Dealt 10 damage."
+	battle.enemy_bot.take_damage(10)
+	battle.output_label.text = "Dealt " + str(10) + " damage."
 	print("Dealt 10 damage.")

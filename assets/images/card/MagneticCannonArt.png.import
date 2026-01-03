@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ts7icb78wfte"
-path="res://.godot/imported/New Piskel-1.png (21).png-1523d36480c039f74f663aa45aaa29c1.ctex"
+uid="uid://c8wfgal28mwkl"
+path="res://.godot/imported/MagneticCannonArt.png-5cb9779a177f1b10245bc70f23332f37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/card/New Piskel-1.png (21).png"
-dest_files=["res://.godot/imported/New Piskel-1.png (21).png-1523d36480c039f74f663aa45aaa29c1.ctex"]
+source_file="res://assets/images/card/MagneticCannonArt.png"
+dest_files=["res://.godot/imported/MagneticCannonArt.png-5cb9779a177f1b10245bc70f23332f37.ctex"]
 
 [params]
 

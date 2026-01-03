@@ -1,7 +1,10 @@
 extends RefCounted
 class_name Conveyor
 
-signal card_added(card, index)
+signal card_added(card : Card, index : int)
+signal card_moved(card_display: CardDisplay, slot : int)
+signal card_scrapped(card: Card, slot : int)
+signal card_to_top_deck(card_display: CardDisplay)
 
 # Cards in conveyor
 var conveyor_cards: Array[Card] = []
@@ -22,15 +25,20 @@ func _init(_max_size: int):
 func add_test_cards():
 	# Fill slot powers + test cards
 	for i in range(max_size - 1, -1, -1):
-		if i % 2 == 0:
-			add_card(StrikeCard.new(), i)
-		else:
+		if i == 0:
+			add_card(HydraulicUppercutCard.new(), i)
+		elif i == 1:
 			add_card(RewindCard.new(), i)
+		elif i == 2:
+			add_card(SalvageBeamCard.new(), i)
+		else:
+			add_card(MagneticCannonCard.new(), i)
 		
 		
 func add_card(card : Card, index : int):
-	conveyor_cards[index] = card
-	card_added.emit(card, index)
+	if card != null:
+		conveyor_cards[index] = card
+		card_added.emit(card, index)
 	
 
 # --- SCRAPPING ----------------------------------------------------------
@@ -43,13 +51,21 @@ func remove_rightmost_card() -> Card:
 		if card != null:
 			# Set card to null
 			conveyor_cards[i] = null
+			# Animate card being scrapped
+			emit_signal("card_scrapped", card, i)
 			return card
 	return null
 	
 # Scrap card at chosen index
 func scrap_at_index(slot_index: int, scrap_pile):
-	scrap_pile.add_to_scrap(conveyor_cards[slot_index])
-	conveyor_cards[slot_index] = null
+	var card = conveyor_cards[slot_index]
+	if card != null:
+		# Signal to animate card being scrapped
+		emit_signal("card_scrapped", card, slot_index)
+		# Add card to scrap pile
+		scrap_pile.add_to_scrap(conveyor_cards[slot_index])
+		# Remove from hand
+		conveyor_cards[slot_index] = null
 	
 ## --- SMUSH TO RIGHT -----------------------------------------------------------
 
@@ -73,6 +89,12 @@ func smush_cards_to_right():
 
 	# Append real cards to the right
 	conveyor_cards.append_array(new_layout)
+	
+	# Animating cards shifting over
+	for i in range(conveyor_cards.size()):
+		var card = conveyor_cards[i]
+		if card != null:
+			emit_signal("card_moved", conveyor_cards[i].card_display, i)
 
 	print("Smushed Cards to Right")
 	print_hand()
@@ -103,22 +125,35 @@ func shift_right_one(deck, scrap_pile):
 	# Shift right
 	for i in range(max_size - 1, 0, -1):
 		conveyor_cards[i] = conveyor_cards[i - 1]
+		
+		# Animating cards shifting
+		if conveyor_cards[i] != null:
+			emit_signal("card_moved", conveyor_cards[i].card_display, i)
 
 	# New card on left
-	conveyor_cards[0] = deck.remove_top_card()
+	var top_card = deck.remove_top_card()
+	add_card(top_card, 0)
 
 # Shift conveyor left 1 space, retrieving from scrap and putting back on deck if necessary
 func shift_left_one(deck, scrap_pile):
 	# Move leftmost back to deck
 	deck.add_top_card(conveyor_cards[0])
+	
+	if conveyor_cards[0] != null:
+		# Animating card being moved back to deck
+		emit_signal("card_to_top_deck", conveyor_cards[0].card_display)
 
 	# Shift left
 	for i in range(0, max_size - 1):
 		conveyor_cards[i] = conveyor_cards[i + 1]
+		
+		# Animating cards shifting
+		if conveyor_cards[i] != null:
+			emit_signal("card_moved", conveyor_cards[i].card_display, i)
 
 	# Restore from scrap
 	var restored = scrap_pile.remove_top_card()
-	conveyor_cards[max_size - 1] = restored
+	add_card(restored, max_size - 1)
 
 # Shift conveyor by chosen number of steps
 func shift(steps: int, deck, scrap_pile):

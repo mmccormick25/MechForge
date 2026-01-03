@@ -15,7 +15,7 @@ var slot_num : int
 @onready var rules_label = $RulesLabel
 
 # Signals for interaction
-signal card_clicked(display: CardDisplay, slot: int)
+signal card_clicked(slot: int)
 signal card_hovered(display: CardDisplay)
 signal card_unhovered(display: CardDisplay)
 
@@ -47,17 +47,12 @@ func set_card(card):
 	name_label.text = card.name
 	cost_label.text = str(card.cost)
 	rules_label.text = card.rules
-	
-	# Set card art if available
-	if "art_texture" in card:
-		card_art.texture = card.art_texture
+	card_art.texture = load("res://assets/images/card/" + card.name.replace(" ", "") + "Art.png")
 		
 # Click detection
 func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
-		# So no signal?
-		# battle.play_card(slot_num)
-		emit_signal("card_clicked", self, slot_num)
+		emit_signal("card_clicked", slot_num)
 		
 		
 

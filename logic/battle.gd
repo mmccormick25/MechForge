@@ -2,9 +2,11 @@ extends Node
 
 class_name Battle
 
-@onready var output_label = $OutputLabel
+@onready var output_label = $HUD/OutputLabel
+@onready var enemy_bot = $HUD/FightDisplay/EnemyBot
+@onready var heat_gague = $HUD/BottomBar/HeatGague
 
-signal card_played(card_display : CardDisplay, slot : int)
+signal card_played(card : Card, slot : int)
 
 # --- References to your game systems ---
 var conveyor: Conveyor
@@ -12,7 +14,6 @@ var scrap_pile: ScrapPile
 var deck: Deck
 
 var player_bot
-var enemy_bot
 
 # This runs before _ready of child nodes
 func _enter_tree() -> void:
@@ -27,7 +28,7 @@ func _ready() -> void:
 # ---------------------------------------------------------
 # Take a player turn (console-based for now)
 # ---------------------------------------------------------
-func play_card(card_display: CardDisplay, selection: int) -> void:
+func play_card(selection: int) -> void:
 	print("")
 	conveyor.print_hand()
 	print("SELECTED: " + str(selection))
@@ -42,13 +43,21 @@ func play_card(card_display: CardDisplay, selection: int) -> void:
 		var card_to_play = conveyor.conveyor_cards[selection]
 
 		if card_to_play:
+			# If heat gague too full to play card
+			if (heat_gague.heat_level + card_to_play.cost > 3):
+				output_label.text = "Heat too high!"
+				return
+			
+			# PLAY CARD
 			# Remove from conveyor
 			conveyor.conveyor_cards[selection] = null
 			# Play card
-			emit_signal("card_played", card_display, selection)
+			emit_signal("card_played", card_to_play, selection)
 			card_to_play.play(self, selection)
 			# Add card to scrap
 			scrap_pile.add_to_scrap(card_to_play)
+			
+			heat_gague.increase_heat()
 
 	# Print updated conveyor
 	conveyor.print_hand()
@@ -82,6 +91,9 @@ func shift_conveyor(steps: int):
 # ---------------------------------------------------------
 func end_turn():
 	print("\n-- END TURN --")
+
+	# Reset heat to 0
+	heat_gague.reset_heat()
 
 	scrap_next_card()
 	conveyor.smush_cards_to_right()

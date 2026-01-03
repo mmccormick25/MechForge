@@ -1,57 +1,126 @@
-[gd_scene load_steps=7 format=3 uid="uid://bub5hnts4w3o"]
+[gd_scene load_steps=13 format=3 uid="uid://bub5hnts4w3o"]
 
 [ext_resource type="Script" uid="uid://coddphvr4q3py" path="res://logic/battle.gd" id="1_6vh42"]
+[ext_resource type="Texture2D" uid="uid://dtfccmdk6f7b5" path="res://assets/images/bots/BlueEnemyBot.png" id="2_4k1nj"]
+[ext_resource type="Script" uid="uid://c7nllr30lh44b" path="res://scenes/enemy_bot.gd" id="2_66ngm"]
 [ext_resource type="Script" uid="uid://cuda3eqj4xqtt" path="res://scenes/conveyor_display.gd" id="2_f4pi3"]
 [ext_resource type="Texture2D" uid="uid://d0vtbpjyqgtqo" path="res://assets/images/HUD/BottomBarBackground.png" id="3_f4pi3"]
+[ext_resource type="Texture2D" uid="uid://dmifnr0o3rx7s" path="res://assets/images/HUD/HeatGagueFilled1.png" id="3_v7i3o"]
+[ext_resource type="Texture2D" uid="uid://bpx4hafm87jli" path="res://assets/images/card/TestCardBackground.png" id="3_yahae"]
+[ext_resource type="Texture2D" uid="uid://yv0ikp0jvpd4" path="res://assets/images/bots/RedPlayerBot.png" id="4_v7i3o"]
 [ext_resource type="Theme" uid="uid://c55mmq4cbc4gt" path="res://ui/DefaultTheme.tres" id="4_yahae"]
 [ext_resource type="Texture2D" uid="uid://djm40w65kmq4g" path="res://assets/images/HUD/conveyorbelt605x60.png" id="5_v7i3o"]
 [ext_resource type="Texture2D" uid="uid://dlhrrbd3jpgyw" path="res://assets/images/HUD/HeatGagueEmpty1.png" id="6_66ngm"]
+[ext_resource type="Script" uid="uid://cbtb551sp43i4" path="res://scenes/heat_gague.gd" id="10_03edq"]
 
 [node name="Battle" type="Node"]
 script = ExtResource("1_6vh42")
 metadata/_edit_lock_ = true
 
-[node name="ConveyorDisplay" type="Node2D" parent="."]
-position = Vector2(288, 612)
-script = ExtResource("2_f4pi3")
-
-[node name="ConveyorCanvas" type="CanvasLayer" parent="ConveyorDisplay"]
-layer = 2
-
-[node name="Slot0" type="Marker2D" parent="ConveyorDisplay"]
-position = Vector2(190, 180)
-
-[node name="Slot1" type="Marker2D" parent="ConveyorDisplay"]
-position = Vector2(492, 180)
-
-[node name="Slot2" type="Marker2D" parent="ConveyorDisplay"]
-position = Vector2(802, 180)
-
-[node name="Slot3" type="Marker2D" parent="ConveyorDisplay"]
-position = Vector2(1107, 180)
-
 [node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="FightDisplay" type="Control" parent="HUD"]
+layout_mode = 3
+anchor_top = 0.106000006
+anchor_bottom = 0.106000006
+offset_top = -22.480003
+offset_right = 39.573753
+offset_bottom = 26.795998
+scale = Vector2(48.517002, 11.222502)
+
+[node name="EnemyBot" type="Node2D" parent="HUD/FightDisplay"]
+position = Vector2(28.093243, 25.03898)
+scale = Vector2(1.0000001, 1)
+script = ExtResource("2_66ngm")
+
+[node name="EnemyBotTexture" type="TextureRect" parent="HUD/FightDisplay/EnemyBot"]
+offset_left = -6.8841887
+offset_top = -22.276672
+offset_right = 4.3489923
+offset_bottom = 24.237019
+texture = ExtResource("2_4k1nj")
+expand_mode = 1
+
+[node name="Health" type="TextureRect" parent="HUD/FightDisplay/EnemyBot"]
+offset_left = -6.162793
+offset_top = -23.880594
+offset_right = 4.1634817
+offset_bottom = -21.920248
+texture = ExtResource("3_v7i3o")
+expand_mode = 1
+
+[node name="HealthNumberLabel" type="Label" parent="HUD/FightDisplay/EnemyBot"]
+offset_left = 5.152835
+offset_top = -13.98975
+offset_right = 89.15283
+offset_bottom = 58.01025
+scale = Vector2(0.05, 0.15)
+theme = ExtResource("4_yahae")
+theme_override_font_sizes/font_size = 64
+text = "100"
+
+[node name="PlayerBot" type="Node2D" parent="HUD/FightDisplay"]
+position = Vector2(9.852218, 23.256845)
+scale = Vector2(1.0000001, 1)
+
+[node name="PlayerBotTexture" type="TextureRect" parent="HUD/FightDisplay/PlayerBot"]
+offset_left = -3.339035
+offset_top = -20.049006
+offset_right = 7.894146
+offset_bottom = 26.464685
+texture = ExtResource("4_v7i3o")
+expand_mode = 1
+
+[node name="Health" type="TextureRect" parent="HUD/FightDisplay/PlayerBot"]
+offset_left = -2.8031409
+offset_top = -22.098461
+offset_right = 7.523134
+offset_bottom = -20.138115
+texture = ExtResource("3_v7i3o")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/FightDisplay"]
+layout_mode = 0
+offset_left = 31.926952
+offset_top = 3.2078404
+offset_right = 39.058483
+offset_bottom = 46.23193
+texture = ExtResource("3_yahae")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="HUD/FightDisplay"]
+layout_mode = 0
+offset_right = 7.0490756
+offset_bottom = 23.0
 
 [node name="TopBar" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
-offset_bottom = 115.0
+offset_bottom = 92.0
 mouse_filter = 2
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/TopBar"]
+layout_mode = 0
+offset_right = 1972.5178
+offset_bottom = 503.7581
+scale = Vector2(0.97337526, 0.18262735)
+texture = ExtResource("3_f4pi3")
 
 [node name="BottomBar" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 0
-offset_top = 612.0
+offset_top = 645.0
 offset_right = 1920.0
-offset_bottom = 1080.0
+offset_bottom = 1081.0
 mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="HUD/BottomBar"]
 layout_mode = 0
 offset_right = 1920.0
-offset_bottom = 469.0
+offset_bottom = 434.0
 texture = ExtResource("3_f4pi3")
+expand_mode = 2
 
 [node name="DeckButton" type="Button" parent="HUD/BottomBar"]
 layout_mode = 1
@@ -68,8 +137,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -543.0
-offset_top = -111.0
+offset_left = -275.0
+offset_top = -81.0
+offset_bottom = -1.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("4_yahae")
@@ -99,9 +169,10 @@ texture = ExtResource("5_v7i3o")
 [node name="HeatGague" type="Control" parent="HUD/BottomBar"]
 anchors_preset = 0
 offset_left = 254.0
-offset_top = 379.0
+offset_top = 344.0
 offset_right = 294.0
-offset_bottom = 419.0
+offset_bottom = 384.0
+script = ExtResource("10_03edq")
 
 [node name="HeatLabel" type="Label" parent="HUD/BottomBar/HeatGague"]
 layout_mode = 1
@@ -110,13 +181,13 @@ anchor_left = -3.1750002
 anchor_top = 0.70400006
 anchor_right = -3.1750002
 anchor_bottom = 0.70400006
-offset_left = -104.99999
-offset_top = -75.16
-offset_right = 119.00001
-offset_bottom = 68.84
+offset_left = -113.99999
+offset_top = -31.160004
+offset_right = 34.000008
+offset_bottom = 58.839996
 theme = ExtResource("4_yahae")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 128
+theme_override_font_sizes/font_size = 80
 text = "HEAT"
 
 [node name="HeatBar1" type="TextureRect" parent="HUD/BottomBar/HeatGague"]
@@ -126,10 +197,10 @@ anchor_left = -0.90000004
 anchor_top = 0.625
 anchor_right = -0.90000004
 anchor_bottom = 0.625
-offset_left = 33.0
-offset_top = 17.0
-offset_right = 65.0
-offset_bottom = 57.0
+offset_left = -57.0
+offset_top = 19.0
+offset_right = -25.0
+offset_bottom = 59.0
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("6_66ngm")
 
@@ -140,10 +211,10 @@ anchor_left = -0.90000004
 anchor_top = 0.625
 anchor_right = -0.90000004
 anchor_bottom = 0.625
-offset_left = 67.0
-offset_top = -1.0
-offset_right = 99.0
-offset_bottom = 63.0
+offset_left = -18.0
+offset_top = 12.0000305
+offset_right = 14.0
+offset_bottom = 62.666656
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("6_66ngm")
 
@@ -154,22 +225,85 @@ anchor_left = -0.90000004
 anchor_top = 0.625
 anchor_right = -0.90000004
 anchor_bottom = 0.625
-offset_left = 101.0
-offset_top = -20.000061
-offset_right = 133.0
-offset_bottom = 69.33331
+offset_left = 20.0
+offset_top = 4.9999695
+offset_right = 52.0
+offset_bottom = 63.666718
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("6_66ngm")
 
-[node name="OutputLabel" type="Label" parent="."]
+[node name="OutputLabel" type="Label" parent="HUD"]
 offset_left = 294.0
-offset_top = 213.0
+offset_top = 9.0
 offset_right = 1578.0
-offset_bottom = 519.0
+offset_bottom = 92.0
 theme = ExtResource("4_yahae")
 theme_override_font_sizes/font_size = 64
 text = "Battle Start!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ConveyorDisplay" type="Node2D" parent="."]
+position = Vector2(288, 612)
+script = ExtResource("2_f4pi3")
+
+[node name="ConveyorCanvas" type="CanvasLayer" parent="ConveyorDisplay"]
+layer = 2
+
+[node name="SlotLabel_0" type="Label" parent="ConveyorDisplay/ConveyorCanvas"]
+offset_left = 452.0
+offset_top = 1003.0
+offset_right = 505.0
+offset_bottom = 1075.0
+theme = ExtResource("4_yahae")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlotLabel_1" type="Label" parent="ConveyorDisplay/ConveyorCanvas"]
+offset_left = 750.0
+offset_top = 1003.0
+offset_right = 803.0
+offset_bottom = 1075.0
+theme = ExtResource("4_yahae")
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlotLabel_2" type="Label" parent="ConveyorDisplay/ConveyorCanvas"]
+offset_left = 1061.0
+offset_top = 1003.0
+offset_right = 1114.0
+offset_bottom = 1075.0
+theme = ExtResource("4_yahae")
+theme_override_font_sizes/font_size = 64
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlotLabel_3" type="Label" parent="ConveyorDisplay/ConveyorCanvas"]
+offset_left = 1363.0
+offset_top = 1005.0
+offset_right = 1416.0
+offset_bottom = 1077.0
+theme = ExtResource("4_yahae")
+theme_override_font_sizes/font_size = 64
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot0" type="Marker2D" parent="ConveyorDisplay"]
+position = Vector2(190, 212)
+
+[node name="Slot1" type="Marker2D" parent="ConveyorDisplay"]
+position = Vector2(492, 212)
+
+[node name="Slot2" type="Marker2D" parent="ConveyorDisplay"]
+position = Vector2(802, 212)
+
+[node name="Slot3" type="Marker2D" parent="ConveyorDisplay"]
+position = Vector2(1107, 212)
 
 [connection signal="pressed" from="HUD/BottomBar/EndTurnButton" to="." method="end_turn"]

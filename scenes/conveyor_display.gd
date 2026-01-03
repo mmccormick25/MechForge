@@ -10,16 +10,22 @@ extends Node2D
 const CARD_DISPLAY_SCENE = preload("res://ui/card_display/card_display.tscn")
 
 func _ready() -> void:
-	battle.conveyor.card_added.connect(_spawn_card)
+	battle.conveyor.card_added.connect(_spawn_card_display)
+	battle.conveyor.card_moved.connect(_on_card_moved)
+	battle.conveyor.card_scrapped.connect(_on_card_scrapped)
+	battle.conveyor.card_to_top_deck.connect(_on_card_to_top_deck)
 	battle.card_played.connect(_on_card_played)
 
-func _spawn_card(card : Card, slot : int):
+func _spawn_card_display(card : Card, slot : int):
 	# Create new card_display scene
 	var new_card_display = CARD_DISPLAY_SCENE.instantiate()
 	# Set slot num
 	new_card_display.slot_num = slot
 	# Set battle controller (for passing signal)
 	new_card_display.battle = battle
+	
+	# Assigning card display to card
+	card.card_display = new_card_display
 	
 	# Connect clicked signal
 	# new_card_display.card_clicked.connect(BattleController._on_card_clicked)
@@ -42,7 +48,34 @@ func _spawn_card(card : Card, slot : int):
 	# Set card to be displayed
 	new_card_display.set_card(card)
 	
-func _on_card_played(card_display: CardDisplay, slot: int):
+func _on_card_moved(card_display : CardDisplay, new_slot : int):
+	card_display.slot_num = new_slot
+	
+	var new_position : Vector2
+	match new_slot:
+		0:
+			new_position = slot_0.position
+		1:
+			new_position = slot_1.position
+		2:
+			new_position = slot_2.position
+		3:
+			new_position = slot_3.position
+	
+	var tween = create_tween()
+	tween.tween_property(card_display, "position", position + new_position, 2)
+	
+func _on_card_played(card: Card, slot: int):
+	var card_display = card.card_display
+	if card_display and card_display.is_inside_tree():
+		card_display.queue_free()
+		
+func _on_card_scrapped(card: Card, slot: int):
+	var card_display = card.card_display
+	if card_display and card_display.is_inside_tree():
+		card_display.queue_free()
+	
+func _on_card_to_top_deck(card_display : CardDisplay):
 	if card_display and card_display.is_inside_tree():
 		card_display.queue_free()
 	

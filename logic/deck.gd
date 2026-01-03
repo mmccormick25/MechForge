@@ -10,7 +10,7 @@ func _init():
 	# Add dummy cards like in Java constructor
 	for i in range(10):
 		#deck_cards.append(Card.new("TestCard", "DA RULES", 1))
-		deck_cards.append(RewindCard.new())
+		deck_cards.append(StrikeCard.new())
 
 func remove_top_card() -> Card:
 	if deck_cards.is_empty():
