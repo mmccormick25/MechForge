@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://cuda3eqj4xqtt" path="res://scenes/conveyor_display.gd" id="2_f4pi3"]
 [ext_resource type="Texture2D" uid="uid://d0vtbpjyqgtqo" path="res://assets/images/HUD/BottomBarBackground.png" id="3_f4pi3"]
 [ext_resource type="Texture2D" uid="uid://dmifnr0o3rx7s" path="res://assets/images/HUD/HeatGagueFilled1.png" id="3_v7i3o"]
-[ext_resource type="Texture2D" uid="uid://bpx4hafm87jli" path="res://assets/images/card/TestCardBackground.png" id="3_yahae"]
 [ext_resource type="Texture2D" uid="uid://yv0ikp0jvpd4" path="res://assets/images/bots/RedPlayerBot.png" id="4_v7i3o"]
 [ext_resource type="Theme" uid="uid://c55mmq4cbc4gt" path="res://ui/DefaultTheme.tres" id="4_yahae"]
 [ext_resource type="Texture2D" uid="uid://djm40w65kmq4g" path="res://assets/images/HUD/conveyorbelt605x60.png" id="5_v7i3o"]
 [ext_resource type="Texture2D" uid="uid://dlhrrbd3jpgyw" path="res://assets/images/HUD/HeatGagueEmpty1.png" id="6_66ngm"]
+[ext_resource type="PackedScene" uid="uid://cac7r6u56xkok" path="res://ui/enemy_card_display/enemy_card_display.tscn" id="7_03edq"]
 [ext_resource type="Script" uid="uid://cbtb551sp43i4" path="res://scenes/heat_gague.gd" id="10_03edq"]
 
 [node name="Battle" type="Node"]
@@ -29,7 +29,7 @@ offset_bottom = 26.795998
 scale = Vector2(48.517002, 11.222502)
 
 [node name="EnemyBot" type="Node2D" parent="HUD/FightDisplay"]
-position = Vector2(28.093243, 25.03898)
+position = Vector2(25.537443, 24.058807)
 scale = Vector2(1.0000001, 1)
 script = ExtResource("2_66ngm")
 
@@ -50,17 +50,17 @@ texture = ExtResource("3_v7i3o")
 expand_mode = 1
 
 [node name="HealthNumberLabel" type="Label" parent="HUD/FightDisplay/EnemyBot"]
-offset_left = 5.152835
-offset_top = -13.98975
-offset_right = 89.15283
-offset_bottom = 58.01025
+offset_left = -6.966633
+offset_top = -27.71218
+offset_right = 77.03337
+offset_bottom = 44.28782
 scale = Vector2(0.05, 0.15)
 theme = ExtResource("4_yahae")
 theme_override_font_sizes/font_size = 64
 text = "100"
 
 [node name="PlayerBot" type="Node2D" parent="HUD/FightDisplay"]
-position = Vector2(9.852218, 23.256845)
+position = Vector2(5.9360647, 23.256845)
 scale = Vector2(1.0000001, 1)
 
 [node name="PlayerBotTexture" type="TextureRect" parent="HUD/FightDisplay/PlayerBot"]
@@ -79,19 +79,16 @@ offset_bottom = -20.138115
 texture = ExtResource("3_v7i3o")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="HUD/FightDisplay"]
-layout_mode = 0
-offset_left = 31.926952
-offset_top = 3.2078404
-offset_right = 39.058483
-offset_bottom = 46.23193
-texture = ExtResource("3_yahae")
-expand_mode = 1
+[node name="EnemyDeck" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1684.0
+offset_top = 369.0
+offset_right = 1684.0
+offset_bottom = 369.0
+scale = Vector2(1.5, 1.5)
 
-[node name="Label" type="Label" parent="HUD/FightDisplay"]
-layout_mode = 0
-offset_right = 7.0490756
-offset_bottom = 23.0
+[node name="EnemyCardDisplay" parent="HUD/EnemyDeck" instance=ExtResource("7_03edq")]
 
 [node name="TopBar" type="Control" parent="HUD"]
 layout_mode = 3
