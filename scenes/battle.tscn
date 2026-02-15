@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bub5hnts4w3o"]
+[gd_scene load_steps=14 format=3 uid="uid://bub5hnts4w3o"]
 
 [ext_resource type="Script" uid="uid://coddphvr4q3py" path="res://logic/battle.gd" id="1_6vh42"]
 [ext_resource type="Texture2D" uid="uid://dtfccmdk6f7b5" path="res://assets/images/bots/BlueEnemyBot.png" id="2_4k1nj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://yv0ikp0jvpd4" path="res://assets/images/bots/RedPlayerBot.png" id="4_v7i3o"]
 [ext_resource type="Theme" uid="uid://c55mmq4cbc4gt" path="res://ui/DefaultTheme.tres" id="4_yahae"]
 [ext_resource type="Texture2D" uid="uid://djm40w65kmq4g" path="res://assets/images/HUD/conveyorbelt605x60.png" id="5_v7i3o"]
+[ext_resource type="Script" uid="uid://cgrhvmyjl2hcs" path="res://scenes/player_bot.gd" id="6_22uqi"]
 [ext_resource type="Texture2D" uid="uid://dlhrrbd3jpgyw" path="res://assets/images/HUD/HeatGagueEmpty1.png" id="6_66ngm"]
 [ext_resource type="PackedScene" uid="uid://cac7r6u56xkok" path="res://ui/enemy_card_display/enemy_card_display.tscn" id="7_03edq"]
 [ext_resource type="Script" uid="uid://cbtb551sp43i4" path="res://scenes/heat_gague.gd" id="10_03edq"]
@@ -62,6 +63,7 @@ text = "100"
 [node name="PlayerBot" type="Node2D" parent="HUD/FightDisplay"]
 position = Vector2(5.9360647, 23.256845)
 scale = Vector2(1.0000001, 1)
+script = ExtResource("6_22uqi")
 
 [node name="PlayerBotTexture" type="TextureRect" parent="HUD/FightDisplay/PlayerBot"]
 offset_left = -3.339035
@@ -78,6 +80,16 @@ offset_right = 7.523134
 offset_bottom = -20.138115
 texture = ExtResource("3_v7i3o")
 expand_mode = 1
+
+[node name="HealthNumberLabel" type="Label" parent="HUD/FightDisplay/PlayerBot"]
+offset_left = -4.493271
+offset_top = -24.59345
+offset_right = 79.50673
+offset_bottom = 47.406548
+scale = Vector2(0.05, 0.15)
+theme = ExtResource("4_yahae")
+theme_override_font_sizes/font_size = 64
+text = "100"
 
 [node name="EnemyDeck" type="Control" parent="HUD"]
 layout_mode = 3

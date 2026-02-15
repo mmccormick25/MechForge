@@ -4,6 +4,7 @@ class_name Battle
 
 @onready var output_label = $HUD/OutputLabel
 @onready var enemy_bot = $HUD/FightDisplay/EnemyBot
+@onready var player_bot = $HUD/FightDisplay/PlayerBot
 @onready var heat_gague = $HUD/BottomBar/HeatGague
 
 signal card_played(card : Card, slot : int)
@@ -12,8 +13,6 @@ signal card_played(card : Card, slot : int)
 var conveyor: Conveyor
 var scrap_pile: ScrapPile
 var deck: Deck
-
-var player_bot
 
 # This runs before _ready of child nodes
 func _enter_tree() -> void:

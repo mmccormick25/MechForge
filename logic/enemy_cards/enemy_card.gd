@@ -8,5 +8,5 @@ func _init(_name: String, _rules: String):
 	rules = _rules
 	name = _name
 	
-func play(battle_controller, slot_index: int) -> void:
+func play(battle_controller) -> void:
 	push_error("EnemyCard.play() was not overridden!")
