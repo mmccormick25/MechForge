@@ -19,3 +19,4 @@ func _process(delta: float) -> void:
 	
 func take_damage(dmg: int) -> void:
 	bot_health -= dmg
+	health_label.text = str(bot_health)

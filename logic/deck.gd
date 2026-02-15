@@ -1,4 +1,4 @@
-# Deck.gd
+
 extends RefCounted
 class_name Deck
 

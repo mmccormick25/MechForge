@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bub5hnts4w3o"]
+[gd_scene load_steps=15 format=3 uid="uid://bub5hnts4w3o"]
 
 [ext_resource type="Script" uid="uid://coddphvr4q3py" path="res://logic/battle.gd" id="1_6vh42"]
 [ext_resource type="Texture2D" uid="uid://dtfccmdk6f7b5" path="res://assets/images/bots/BlueEnemyBot.png" id="2_4k1nj"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cgrhvmyjl2hcs" path="res://scenes/player_bot.gd" id="6_22uqi"]
 [ext_resource type="Texture2D" uid="uid://dlhrrbd3jpgyw" path="res://assets/images/HUD/HeatGagueEmpty1.png" id="6_66ngm"]
 [ext_resource type="PackedScene" uid="uid://cac7r6u56xkok" path="res://ui/enemy_card_display/enemy_card_display.tscn" id="7_03edq"]
+[ext_resource type="Script" uid="uid://wb3qpvxphgwh" path="res://scenes/enemy_deck_display.gd" id="8_6ni85"]
 [ext_resource type="Script" uid="uid://cbtb551sp43i4" path="res://scenes/heat_gague.gd" id="10_03edq"]
 
 [node name="Battle" type="Node"]
@@ -90,6 +91,11 @@ scale = Vector2(0.05, 0.15)
 theme = ExtResource("4_yahae")
 theme_override_font_sizes/font_size = 64
 text = "100"
+
+[node name="EnemyDeckDisplay" type="Node2D" parent="HUD/FightDisplay"]
+position = Vector2(34.709484, 24.682556)
+scale = Vector2(0.030917, 0.13366005)
+script = ExtResource("8_6ni85")
 
 [node name="EnemyDeck" type="Control" parent="HUD"]
 layout_mode = 3

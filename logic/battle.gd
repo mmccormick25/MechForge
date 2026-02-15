@@ -25,7 +25,7 @@ func _ready() -> void:
 	conveyor.add_test_cards()
 
 # ---------------------------------------------------------
-# Take a player turn (console-based for now)
+# Take player turn
 # ---------------------------------------------------------
 func play_card(selection: int) -> void:
 	print("")
@@ -60,6 +60,8 @@ func play_card(selection: int) -> void:
 
 	# Print updated conveyor
 	conveyor.print_hand()
+	
+	
 
 
 # ---------------------------------------------------------
@@ -97,4 +99,7 @@ func end_turn():
 	scrap_next_card()
 	conveyor.smush_cards_to_right()
 	conveyor.draw_to_full(deck)
+	
+	# Enemy bot's turn
+	enemy_bot.take_turn(self)
 	
